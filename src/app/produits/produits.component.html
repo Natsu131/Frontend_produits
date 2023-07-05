@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+            <tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date Création</th> </tr>
+        </thead>
+        <tbody *ngFor="let produit of produits"> <!--Parcours le model, c'est  dire ici le tableau produits qui contient les données-->
+          <tr>
+            <td>{{produit.idProduit}}</td> <!--Déclaration des propriétés -->
+            <td>{{produit.nomProduit}}</td>
+            <td>{{produit.prixProduit}}</td>
+            <td>{{produit.dateCreation | date:'dd/MM/yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
