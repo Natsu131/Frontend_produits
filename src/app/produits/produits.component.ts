@@ -10,17 +10,29 @@ import { ProduitService } from '../services/produit.service';
 export class ProduitsComponent implements OnInit {
 
 
-  produits : Produit [];
+  produits? : Produit [];
   //Injection du service
 
-  constructor(private prodduitService : ProduitService){
-  //Je rempli mon tableau produits avec la liseProduits déclarer dans le service
-  this.produits = prodduitService.listeProduits();
+  constructor(private produitService : ProduitService){
+        //Je rempli mon tableau produits avec la liseProduits déclarer dans le service
+
+     this.produits = this.produitService.listeProduits();
 
   }
 
   ngOnInit(): void {
 
+
   }
+
+  supprimerProduit(prod : Produit){
+    //console.log(prod);
+    let confirme = confirm("Etes-vous sûr");
+    if(confirme){
+      this.produitService.supprimerProduit(prod);
+    }
+
+  }
+
 }
 

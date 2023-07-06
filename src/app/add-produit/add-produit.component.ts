@@ -11,9 +11,9 @@ export class AddProduitComponent implements OnInit{
 
   newProduit = new Produit();
 
-  message : string;
+ message? : string;
 
-  constructor(private prodduitService : ProduitService){}
+  constructor(private produitService : ProduitService){}
 
   ngOnInit(): void {
 
@@ -21,8 +21,8 @@ export class AddProduitComponent implements OnInit{
 
   addProduit(){
     //console.log(this.newProduit);
-    this.prodduitService.ajouterProduit(this.newProduit);
-    this.message = "Produit " + this.newProduit.nomProduit + "ajouté avec succès !";
+    this.produitService.ajouterProduit(this.newProduit);
+    this.message = "Produit " + this.newProduit.nomProduit + " ajouté avec succès !";
 
 
   }
