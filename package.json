@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-     "debug": "node --inspect server.js"
+    "debug": "node --inspect server.js"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +21,11 @@
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
     "bootstrap": "^4.5.3",
+    "deps": "^1.0.0",
     "i": "^0.3.7",
     "jquery": "^3.7.0",
+    "legacy": "^0.0.3",
+    "peer": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
