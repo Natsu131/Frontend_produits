@@ -3,7 +3,7 @@
   <h2>Ajouter un Produit :</h2>
 </div>
 <form>
-  <div class="col-sm-2 col-md-2 col-lg-2">
+  <div hidden class="col-sm-2 col-md-2 col-lg-2">
     <label>ID Produit</label> <!--Ici l'id n'est pas encore automatique, il doit être saisi par l'utilisateur-->
     <input type="text" [(ngModel)]="newProduit.idProduit" name="idProduit" class="form-control">
   </div>
@@ -23,15 +23,15 @@
     <input type="date" [(ngModel)]="newProduit.dateCreation" name="dateCreation" class="form-control">
   </div>
 
-  <div class="col-sm-4 col-md-4 col-lg-4">
+  <!--<div class="col-sm-4 col-md-4 col-lg-4">
     <label>Categorie</label>
-    <!--Je relie les valeurs de ce select avec un attribut qui s'appelle newIdcat-->
+    Je relie les valeurs de ce select avec un attribut qui s'appelle newIdcat
     <select class="form-control form-control-lg" id="idCat" name="idCat" [(ngModel)]="newIdcat">
-      <!--Ici on a les valeurs de notre liste déroulante / Je parcours la liste des catégories (la liste remplie dans add-produit initialisée dans ngOnInit) -->
-      <option *ngFor="let cat of categories" [value]="cat.idCat">{{cat.nomCat}}</option> <!--A la sélection, la valeur retourner sera
-      l'id de la caétorie et à l'affichage le nom de la catégorie   -->
+      Ici on a les valeurs de notre liste déroulante / Je parcours la liste des catégories (la liste remplie dans add-produit initialisée dans ngOnInit)
+      <option *ngFor="let cat of categories" [value]="cat.idCat">{{cat.nomCat}}</option> A la sélection, la valeur retourner sera
+      l'id de la caétorie et à l'affichage le nom de la catégorie
     </select>
-  </div>
+  </div>-->
   <div class="mt-2">
     <button type="submit" (click)="addProduit()" class="btn btn-success">Ajouter</button>
     <div>

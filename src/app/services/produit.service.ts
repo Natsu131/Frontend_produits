@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Produit } from '../model/produit.model';
 import { Categorie } from '../model/categorie.model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+const httpOptions = {
+  headers: new HttpHeaders( {'Content-Type': 'application/json'} ) // Permet de dire à angular que les données retournées seront du Json
+};
 
 //Ce produit peut être injecté dans d'autres class
 @Injectable({
@@ -8,57 +15,65 @@ import { Categorie } from '../model/categorie.model';
 })
 export class ProduitService {
 
-  produits : Produit []; //un tableau de produit
+  apiURL: string = 'http://localhost:3000/produits/api'; //Liaison avec le backend
+
+  produits! : Produit []; //un tableau de produit
   //Utiliser le « Data Binding » pour afficher la liste des produits
   //Je déclare un tableau de string
-  categories : Categorie[];
+ // categories : Categorie[];
 
-  produit! : Produit;
+ // produit! : Produit;
   //Objet de produits
 
-  constructor() {
+  //Injection de dépendance permettant de faire appel aux API grâce à la variable http  (ex:this.http.get...)
+  constructor(private http : HttpClient) {
 
-    this.categories = [
-      {idCat : 1, nomCat : "PC"},
-      {idCat : 2, nomCat : "Téléphone"}
-    ]
-    this.produits = [
-      {idProduit : 1, nomProduit : "PC MSI", prixProduit : 3000.600, dateCreation : new Date("06/14/2011"), categorie : {idCat: 1, nomCat: "PC"}},
-      {idProduit : 2, nomProduit : "OnePlus 8", prixProduit : 600.99, dateCreation : new Date("08/11/2015"), categorie :{ idCat: 2, nomCat: "Téléphone"}},
-      {idProduit : 3, nomProduit :"PC Asus", prixProduit : 900.123, dateCreation : new Date("09/12/2023"), categorie: {idCat: 1, nomCat:"Téléphone"}}
+    // this.categories = [
+    //   {idCat : 1, nomCat : "PC"},
+    //   {idCat : 2, nomCat : "Téléphone"}
+    // ]
+    // this.produits = [
+    //   {idProduit : 1, nomProduit : "PC MSI", prixProduit : 3000.600, dateCreation : new Date("06/14/2011"), categorie : {idCat: 1, nomCat: "PC"}},
+    //   {idProduit : 2, nomProduit : "OnePlus 8", prixProduit : 600.99, dateCreation : new Date("08/11/2015"), categorie :{ idCat: 2, nomCat: "Téléphone"}},
+    //   {idProduit : 3, nomProduit :"PC Asus", prixProduit : 900.123, dateCreation : new Date("09/12/2023"), categorie: {idCat: 1, nomCat:"Téléphone"}}
 
-    ];
+    // ];
 
   }
 
-  listeProduits(): Produit[]{
-      return this.produits;
+  // listeProduits(): Produit[]{
+  //     return this.produits;
+  //   }
+
+  listeProduit(): Observable<Produit[]>{
+    return this.http.get<Produit[]>(this.apiURL); //Retourne un tableau de produit sous format Json
     }
 
     //Ley produit passé en paramètre va être ajouter au tableau produit
-    ajouterProduit(produit : Produit){
+    /*ajouterProduit(produit : Produit){
       this.produits.push(produit);
+    }*/
+
+    ajouterProduit( prod: Produit):Observable<Produit>{
+      return this.http.post<Produit>(this.apiURL, prod, httpOptions); /* Retourne le produit ajouter (noter qu'avez les api rest on ne travaille qu'avec des observables)
+      La méthode post permet d'ajouter avec les api rest. Dans corps de ma requête http, je vais transmettre un produit sous format Json. Je recupère le paramètre prod que je transmets dans le return.httpOptions
+      veut dire que je transmets de données sous format Json (la constance déclarée plus haut)*/
     }
 
-    supprimerProduit(prod: Produit){
-      const index = this.produits.indexOf(prod, 0); // Je cherce la position de l'index du produit en question passer en paramètre. Sa posituon sera stocké dans index
-      if(index > -1){
-        this.produits.splice(index,1); //Si index est supérieur à -1, ça veut qu'il a trouvé le produit. La méthode splice va supprimer le produit (1 seul)
-      }
+    supprimerProduit(id: number){
+      const url = `${this.apiURL}/${id}`; // Prends comme paramètre l'id du produit que je souhaite supprimer. Je concataine l'url avec l'id du produit
+      return this.http.delete(url, httpOptions);
     }
 
-    consulterProduit(id:number): Produit{
-       return this.produits.find(p => p.idProduit == id)!; // find va chercher dans le tableau le produit dont l'id est égale à l'id passé  en parmètre. Si elle le trouve, elle va e mettre dans la variable this.produit
+    consulterProduit(id: number): Observable<Produit> {
+        const url = `${this.apiURL}/${id}`; //Je concataine l'url avec l'id du produit à modifier
+        return this.http.get<Produit>(url); // Je retour le resultat de type produit et je construit la nouvelle url
     }
-
 
     //Modifier produit
-    updateProduit(p:Produit){
-      this.supprimerProduit(p);
-      this.ajouterProduit(p);
-      this.trierProduits();
+    updateProduit(prod :Produit) : Observable<Produit>{
+        return this.http.put<Produit>(this.apiURL, prod, httpOptions); //Apelle notre api rest qui est de type put. On passe comme paramètre un produit
     }
-
     //Trie les id des produits
 
     trierProduits(){
@@ -74,12 +89,12 @@ export class ProduitService {
      }
 
      // Retour le tableau de catégories
-     listerCategories():Categorie[]{
-      return this.categories;
-     }
+    //  listerCategories():Categorie[]{
+    //   return this.categories;
+    //  }
 
      // La méthode find va chercher dans le tableau une catégorie et retourner un objet Json de type Categorie
-     consulterCategorie(id:number): Categorie{
-      return this.categories.find(cat => cat.idCat == id)!;
-     }
+    //  consulterCategorie(id:number): Categorie{
+    //   return this.categories.find(cat => cat.idCat == id)!;
+    //  }
 }
