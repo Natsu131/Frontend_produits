@@ -8,6 +8,9 @@ import { ProduitsComponent } from './produits/produits.component';
 import { AddProduitComponent } from './add-produit/add-produit.component';
 import { UpdateProduitComponent } from './update-produit/update-produit.component';
 import {HttpClientModule} from '@angular/common/http';
+import { RechercheParCategorieComponent } from './recherche-par-categorie/recherche-par-categorie.component';
+import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import {HttpClientModule} from '@angular/common/http';
     AppComponent,
     ProduitsComponent,
     AddProduitComponent,
-    UpdateProduitComponent
+    UpdateProduitComponent,
+    RechercheParCategorieComponent,
+    RechercheParNomComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,

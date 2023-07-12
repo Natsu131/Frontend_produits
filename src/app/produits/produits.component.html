@@ -3,7 +3,7 @@
     <div class="card-body">
       <table class="table table-striped">
         <thead>
-            <tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date Création</th> </tr>
+            <tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date Création</th><th>Catégorie</th> </tr>
         </thead>
         <tbody *ngFor="let produit of produits"> <!--Parcours le model, c'est  dire ici le tableau produits qui contient les données-->
           <tr>
@@ -11,11 +11,10 @@
             <td>{{produit.nomProduit}}</td>
             <td>{{produit.prixProduit}}</td>
             <td>{{produit.dateCreation | date:'dd/MM/yyyy'}}</td>
-            <!-- <td>{{produit.categorie.nomCat}}</td> -->
+            <td>{{produit.categorie.nomCat}}</td> <!--J'accès au nomCat lorsque catégorie n'est pas nul-->
             <td><a class = "btn btn-danger"  (click)="supprimerProduit(produit)">Supprimer</a></td>
             <td><a class="btn btn-success" [routerLink]="['/updateProduit',produit.idProduit]">Modifier</a></td><!--Le routeurLink permet au click d'envoyer l'url d'engular (ici
               /updateProduit) qui a un paramètre qui est l'id du produit en cours, donc le produit que je que je souhaite modifier-->
-
           </tr>
         </tbody>
       </table>
