@@ -2,6 +2,13 @@
   <div class="card shadow mb-4">
     <div class="card-body">
 
+      <!-- <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2 mt-2 ">
+          <label>Nom Produit en tapant</label>
+          <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
+        </div>
+      </form> -->
+
       <!--RECHERCHE PAR NOM-->
       <!-- <form class="form-inline">
         <div class="form-group mx-sm-3 mb-2 mt-2 ">
@@ -38,6 +45,8 @@
           </tr>
         </thead>
         <tbody *ngFor="let produit of produits">
+          <!--RECHERCHES AVEC LES PIPES-->
+          <!-- <tbody *ngFor="let produit of produits | searchFilter: searchTerm"> -->
           <!--Parcours le model, c'est  dire ici le tableau produits qui contient les données-->
           <tr>
             <td>{{produit.idProduit}}</td> <!--Déclaration des propriétés -->

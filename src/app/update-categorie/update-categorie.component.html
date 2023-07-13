@@ -1,0 +1,17 @@
+<form>
+  <div>
+    <label>ID Catégorie</label>
+    <input type="text" [(ngModel)]="categorie.idCat" name="idCategorie" class="form-control w-25"> <!--J'utilise le twa way binding avec le ngModel pour relier l'input
+    à l'id de l'objt catégorie (même chose avec e nomCategorie)-->
+  </div>
+  <div>
+    <label>Nom Catégorie</label>
+    <input type="text" [(ngModel)]="categorie.nomCat" name="nomCategorie" class="form-control"
+      placeholder="Entrez un nom de catégorie...">
+  </div>
+  <div class="mt-2">
+    <button type="submit" [disabled]="!categorie.nomCat" class="btn btn-success"
+      (click)="saveCategorie()">Ajouter</button>
+    <!--disalbled not catégorie veut dire que quand le champs nomCategorie est vide, on ne peut ajouter le bouton (il est désactiver quand le champ nomCategorie est vide)-->
+  </div>
+</form>
